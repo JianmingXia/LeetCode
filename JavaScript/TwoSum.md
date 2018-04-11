@@ -1,4 +1,4 @@
-# Two Sum（两数之和）
+# Two Sum（1.两数之和）
 
 ## 题目描述
 Given an array of integers, return indices of the two numbers such that they add up to a specific target.
@@ -14,7 +14,7 @@ return [0, 1].
 ```
 
 ## 思路分析
-根据target，找到求和等于target的两位下标。根据javascript对象的特性，当对象属性未被设置时为undefined。在下标递增的情况下，不断设置值为属性，数组下标设为值，当map[find_num]找到时，即满足情况。
+根据target，找到求和等于target的两位下标。根据javascript对象的特性，当对象属性未被设置时为undefined。在下标递增的情况下，以数组中值为属性，判断对象中的属性是否存在，如果为undefined，则需要继续查找，并在当前对象中设置属性；当map[find_num]不为undefined时，即满足条件。
 
 ## 代码
 ```

@@ -1,4 +1,4 @@
-# Detect Capital（检测大写字母）
+# Detect Capital（520.检测大写字母）
 
 ## 题目描述
 Given a word, you need to judge whether the usage of capitals in it is right or not.
@@ -31,6 +31,10 @@ Note: The input will be a non-empty word consisting of uppercase and lowercase l
 ## 代码
 ### 正则解决
 ```
+/**
+ * @param {string} word
+ * @return {boolean}
+ */
 var detectCapitalUse = function (word) {
     return /^([A-Z]+|[a-z]+|[A-Z][a-z]+)$/.test(word);
 };
@@ -38,5 +42,47 @@ var detectCapitalUse = function (word) {
 
 ### 硬编码
 ```
-// TODO
+const isUpper = function (letter) {
+  return letter >= 'A' && letter <= 'Z';
+}
+
+const allUpper = function (word) {
+  for(let i = 0; i < word.length; i++) {
+    if(false == isUpper(word[i])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+const allLower = function (word) {
+  for (let i = 0; i < word.length; i++) {
+    if (isUpper(word[i])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
+ * @param {string} word
+ * @return {boolean}
+ */
+var detectCapitalUse = function (word) {
+  if (word.length <= 1) {
+    return true;
+  }
+
+  let first_is_upper = isUpper(word[0]);
+  const sub_str = word.substring(1);
+  if(first_is_upper) {
+    return allUpper(sub_str) || allLower(sub_str);
+  } else {
+    return allLower(sub_str);
+  }
+
+  return true;
+};
 ```
