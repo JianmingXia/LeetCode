@@ -41,6 +41,9 @@ var detectCapitalUse = function (word) {
 ```
 
 ### 硬编码
+- 时间复杂度O(n)
+- 空间复杂度O(1)
+
 ```
 const isUpper = function (letter) {
   return letter >= 'A' && letter <= 'Z';
