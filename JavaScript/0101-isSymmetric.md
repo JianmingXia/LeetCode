@@ -26,12 +26,17 @@
 如果你可以运用递归和迭代两种方法解决这个问题，会很加分。
 
 ## 思路分析
+### 思路1
 这个与上一题有点像，上题使用了中序遍历，这题应用前序和后序遍历，刚刚可以解决这个问题。
+
+### 思路2
+采用递归的方式，判断左树与右树是否是对称，一直递归下去。
 
 ## 代码
 - 时间复杂度O(n)
 - 空间复杂度O(n)
 
+### 思路1
 ```
 const preOrderTraversal = (tree, res) => {
   if(tree) {
@@ -82,5 +87,38 @@ var isSymmetric = function(root) {
   arr1.reverse();
   
   return JSON.stringify(arr1) === JSON.stringify(arr2);
+};
+```
+
+### 思路2
+
+```
+const isMirror = (tree1, tree2) => {
+  if(!tree1 && !tree2) {
+    return true;
+  } else if (tree1 && tree2) {
+    return tree1.val === tree2.val && isMirror(tree1.left, tree2.right) && isMirror(tree1.right, tree2.left);
+  } else {
+    return false;
+  }
+}
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isSymmetric = function(root) {
+  if(!root) {
+    return true;
+  }
+  
+  return isMirror(root.left, root.right);
 };
 ```
