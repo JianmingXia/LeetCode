@@ -49,8 +49,8 @@
 const inOrderTraversal = (tree, res) => {
   if(tree) {
     if(tree.left || tree.right) {
-      inOrderTraversal(tree.left, res);
       res.push(tree.val);
+      inOrderTraversal(tree.left, res);
       inOrderTraversal(tree.right, res);
     } else {
       res.push(tree.val);
