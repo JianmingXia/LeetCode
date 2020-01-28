@@ -34,16 +34,25 @@
 - 相等：记录当前节点，并同时向前遍历
 - 不相等：返回记录的节点或空节点
 
-不过前提是个单向链表，这个操作就不行了。不过有个前提，链表是没有环的，所以这里还有个方法来做。我们知道，如果两个节点是有公共节点的，那么链表的后几个元素应该是相等的。
+### 思路1
+不过前提是个单向链表，这个操作就不行了。
+不过有个前提，链表是没有环的，所以这里还有个方法来做。我们知道，如果两个节点是有公共节点的，那么链表的后几个元素应该是相等的。
 这里我们假设单向链表的长度分别为 M 及 N，而公共链表长度为 C：
 - 如果 C > 0，那么他们会在 M + N - C 处以及 N + M - C 处相遇
 - 如果 C = 0，会在 M + N 处停止
 上面其实就是解题思想，先同时遍历两个链表，如果一个链表遍历结束了，切换到另一个链表。
 
+### 思路2
+上面的思路可能有点绕，这里我换了新方法，我们假设两个链表有共同后缀：
+- 首先获取两个链表的长度
+- 以短的链表长度为准；长的链表进行出队操作——直至长度相等
+- 开始迭代比较是否相等
+
 ## 代码
 - 时间复杂度O(n)
 - 空间复杂度O(n)
 
+### 思路1
 ```
 /**
  * Definition for singly-linked list.
@@ -68,5 +77,62 @@ var getIntersectionNode = function(headA, headB) {
   }
 
   return node1;
+};
+```
+
+### 思路2
+```
+const getListLength = (root) => {
+  let len = 0;
+  let node = root;
+
+  while(node) {
+    len++;
+
+    node = node.next;
+  }
+
+  return len;
+}
+
+const parseList = (root, len, anotherLen) => {
+  let times = len - anotherLen;
+  if(times <= 0) {
+    return root;
+  }
+
+  while(times--) {
+    root = root.next;
+  }
+
+  return root;
+}
+
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function(headA, headB) {
+  let lenA = getListLength(headA);
+  let lenB = getListLength(headB);
+
+  let nodeA = parseList(headA, lenA, lenB);
+  let nodeB = parseList(headB, lenB, lenA);
+
+  while(nodeA && nodeA != nodeB) {
+    nodeA = nodeA.next;
+    nodeB = nodeB.next;
+  }
+
+  return nodeA;
 };
 ```
