@@ -31,6 +31,31 @@
 - 时间复杂度O(n)
 - 空间复杂度O(n)
 
+### 思路1
+```
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var majorityElement = function(nums) {
+  let elements = {};
+  const half = nums.length / 2;
+
+  for(let num of nums) {
+    if(elements[num]) {
+      elements[num]++;
+    } else {
+      elements[num] = 1;
+    }
+
+    if(elements[num] > half) {
+      return num;
+    }
+  }
+};
+```
+
+### 思路2
 ```
 /**
  * @param {number[]} nums
